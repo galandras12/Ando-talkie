@@ -33,3 +33,7 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Tesztelési célú aláíró kulcstár és a verziószámozott release APK-k a repóban maradnak
+!keystore/test-release.keystore
+!releases/*.apk
