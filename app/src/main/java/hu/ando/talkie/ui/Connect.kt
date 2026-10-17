@@ -71,6 +71,12 @@ fun ConnectScreen(onWizard: () -> Unit, onOpenChat: (String) -> Unit) {
             }
             if (mode == 0) wifiItems() else bluetoothItems()
             item {
+                val c = LocalContext.current
+                OutlinedButton(onClick = { runCatching { ApkShare.share(c) } }, modifier = Modifier.fillMaxWidth()) {
+                    Text("A másik eszköznek nincs meg az app? APK megosztása")
+                }
+            }
+            item {
                 Button(onClick = onWizard, modifier = Modifier.fillMaxWidth()) {
                     Icon(Icons.Default.AutoFixHigh, null); Spacer(Modifier.size(8.dp)); Text("Nem megy? Segítő varázsló")
                 }

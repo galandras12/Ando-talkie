@@ -7,6 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.clickable
+import android.widget.Toast
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Icon
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -55,6 +60,14 @@ fun SettingsScreen() {
     var setPin by remember { mutableStateOf(false) }
     var confirmOff by remember { mutableStateOf(false) }
     var forget by remember { mutableStateOf<String?>(null) }
+
+    val apkSaver = androidx.activity.compose.rememberLauncherForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.CreateDocument(ApkShare.MIME)
+    ) { uri ->
+        if (uri != null) Toast.makeText(
+            ctx, if (runCatching { ApkShare.saveTo(ctx, uri) }.isSuccess) "Elmentve" else "Mentés sikertelen", Toast.LENGTH_SHORT,
+        ).show()
+    }
 
     Column(Modifier.verticalScroll(rememberScrollState())) {
         Section("Megjelenés")
@@ -127,6 +140,21 @@ fun SettingsScreen() {
                 trailingContent = { Text("Törlés", color = MaterialTheme.colorScheme.error) },
             )
         }
+        HorizontalDivider()
+
+        Section("Alkalmazás megosztása")
+        ListItem(
+            modifier = Modifier.clickable { runCatching { ApkShare.share(ctx) }.onFailure { Toast.makeText(ctx, "A megosztás nem sikerült", Toast.LENGTH_SHORT).show() } },
+            leadingContent = { Icon(Icons.Default.Share, null) },
+            headlineContent = { Text("APK megosztása") },
+            supportingContent = { Text("Offline átadás a telepítőfájllal (${formatSize(ApkShare.size(ctx))}) Bluetooth-on, Quick Share-en vagy más módon") },
+        )
+        ListItem(
+            modifier = Modifier.clickable { apkSaver.launch(ApkShare.fileName()) },
+            leadingContent = { Icon(Icons.Default.Save, null) },
+            headlineContent = { Text("APK mentése fájlba") },
+            supportingContent = { Text(ApkShare.fileName()) },
+        )
         HorizontalDivider()
 
         Section("Névjegy")

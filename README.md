@@ -9,6 +9,7 @@ Android Walkie Talkie alkalmazás: két eszköz közvetlenül (peer-to-peer) kap
 - **Beszélgetések tárolása** az eszközön (a szövegek Android Keystore kulccsal titkosítva)
 - **Segítő varázsló** (Kapcsolat fül → „Nem megy? Segítő varázsló”), ha az automatikus keresés nem találja a másik eszközt
 - **Alkalmazászár**: PIN kód és/vagy ujjlenyomat, állítható késleltetés, képernyőkép-tiltás
+- **APK megosztása offline**: Beállítások → „APK megosztása” (vagy Kapcsolat fül) – a telepített release APK-t Bluetooth-on, Quick Share-en vagy bármely más módon továbbadhatod, vagy fájlba mentheted
 - **Material 3** felület, világos / sötét / rendszer téma, dinamikus színek (Android 12+)
 
 ## Titkosítás

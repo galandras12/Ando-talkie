@@ -5,8 +5,8 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
-val appVersionName = "1.0.0"
-val appVersionCode = 1
+val appVersionName = "1.1.0"
+val appVersionCode = 2
 
 android {
     namespace = "hu.ando.talkie"
